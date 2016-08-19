@@ -12,7 +12,7 @@ helm status $2
 if [ $? -ne 0 ]; then
   # doesn't exist yet
   echo "Release doesn't exist, installing"
-  helm install --namespace $1 --replace --name $2 --values $3 $4
+  helm install --namespace $1 --name $2 --values $3 $4
 else
   # already exists
   echo "Release already exists, upgrading"
