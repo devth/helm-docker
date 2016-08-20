@@ -16,5 +16,5 @@ if [ $? -ne 0 ]; then
 else
   # already exists
   echo "Release already exists, upgrading"
-  helm upgrade --namespace $1 $2 --values $3 $4 fi
+  helm upgrade $2 --values $3 $4 fi
 fi
