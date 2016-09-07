@@ -2,7 +2,7 @@ FROM google/cloud-sdk
 
 MAINTAINER Trevor Hartman <trevorhartman@gmail.com>
 
-ENV VERSION v2.0.0-alpha.3
+ENV VERSION v2.0.0-alpha.4
 
 WORKDIR /
 
