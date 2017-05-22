@@ -19,9 +19,19 @@ RUN google-cloud-sdk/install.sh --usage-reporting=true --path-update=true --bash
 RUN google-cloud-sdk/bin/gcloud config set --installation component_manager/disable_update_check true
 
 # Install Helm
-ENV VERSION v2.4.1
+ENV VERSION v2.4.2
 ENV FILENAME helm-${VERSION}-linux-amd64.tar.gz
 ADD https://kubernetes-helm.storage.googleapis.com/${FILENAME} /tmp
 RUN tar -zxvf /tmp/${FILENAME} -C /tmp \
   && mv /tmp/linux-amd64/helm /bin/helm \
   && rm -rf /tmp
+
+# Helm plugins require git
+# helm-diff requires bash, curl
+RUN apk --update add git bash curl
+
+# Install Helm plugins
+RUN helm init --client-only
+# Plugin is downloaded to /tmp, which must exist
+RUN mkdir /tmp
+RUN helm plugin install https://github.com/databus23/helm-diff
