@@ -1,14 +1,15 @@
-FROM alpine
+FROM alpine:3.6
 
 MAINTAINER Trevor Hartman <trevorhartman@gmail.com>
 
 WORKDIR /
 
 # Enable SSL
-RUN apk --update add ca-certificates wget python
+RUN apk --update add ca-certificates wget python curl tar
 
 # Install gcloud and kubectl
 # kubectl will be available at /google-cloud-sdk/bin/kubectl
+# This is added to $PATH
 ENV HOME /
 ENV PATH /google-cloud-sdk/bin:$PATH
 ENV CLOUDSDK_PYTHON_SITEPACKAGES 1
@@ -19,16 +20,18 @@ RUN google-cloud-sdk/install.sh --usage-reporting=true --path-update=true --bash
 RUN google-cloud-sdk/bin/gcloud config set --installation component_manager/disable_update_check true
 
 # Install Helm
-ENV VERSION v2.4.2
+ENV VERSION v2.5.0
 ENV FILENAME helm-${VERSION}-linux-amd64.tar.gz
-ADD https://kubernetes-helm.storage.googleapis.com/${FILENAME} /tmp
-RUN tar -zxvf /tmp/${FILENAME} -C /tmp \
+ENV HELM_URL https://storage.googleapis.com/kubernetes-helm/${FILENAME}
+
+RUN curl -o /tmp/$FILENAME ${HELM_URL} \
+  && tar -zxvf /tmp/${FILENAME} -C /tmp \
   && mv /tmp/linux-amd64/helm /bin/helm \
   && rm -rf /tmp
 
 # Helm plugins require git
 # helm-diff requires bash, curl
-RUN apk --update add git bash curl
+RUN apk --update add git bash
 
 # Install Helm plugins
 RUN helm init --client-only
