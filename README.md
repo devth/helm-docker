@@ -1,5 +1,7 @@
 # helm-docker
 
+[![Docker Pulls](https://img.shields.io/docker/pulls/devth/helm.svg?style=flat-square)](https://hub.docker.com/r/devth/helm/)
+
 Docker images are automatically built on [Docker
 Hub](https://hub.docker.com/r/devth/helm/):
 
