@@ -19,3 +19,13 @@ The image also includes the `helm diff` Helm Plugin.
 ```bash
 docker build -t devth/helm .
 ```
+
+## Release procedure
+
+1. Bump `VERSION` in the [Dockerfile](Dockerfile)
+1. Create tag matching the version:
+
+   ```bash
+   git tag 2.7.1
+   git push && git push --tags
+   ```
