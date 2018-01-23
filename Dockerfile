@@ -1,5 +1,7 @@
 FROM alpine:3.6
 
+ENV VERSION v2.8.0
+
 MAINTAINER Trevor Hartman <trevorhartman@gmail.com>
 
 WORKDIR /
@@ -20,7 +22,6 @@ RUN google-cloud-sdk/install.sh --usage-reporting=true --path-update=true --bash
 RUN google-cloud-sdk/bin/gcloud config set --installation component_manager/disable_update_check true
 
 # Install Helm
-ENV VERSION v2.7.2
 ENV FILENAME helm-${VERSION}-linux-amd64.tar.gz
 ENV HELM_URL https://storage.googleapis.com/kubernetes-helm/${FILENAME}
 
