@@ -1,6 +1,6 @@
 FROM alpine:3.6
 
-ENV VERSION v2.8.2
+ENV VERSION v2.9.0-rc2
 
 MAINTAINER Trevor Hartman <trevorhartman@gmail.com>
 
@@ -38,5 +38,5 @@ RUN apk --update add git bash
 RUN helm init --client-only
 # Plugin is downloaded to /tmp, which must exist
 RUN mkdir /tmp
-RUN helm plugin install https://github.com/databus23/helm-diff
 RUN helm plugin install https://github.com/viglesiasce/helm-gcs.git
+RUN helm plugin install https://github.com/databus23/helm-diff
