@@ -1,6 +1,6 @@
 FROM alpine:3.6
 
-ENV VERSION v2.10.0
+ENV VERSION v2.11.0
 
 MAINTAINER Trevor Hartman <trevorhartman@gmail.com>
 
@@ -24,6 +24,8 @@ RUN google-cloud-sdk/bin/gcloud config set --installation component_manager/disa
 # Install Helm
 ENV FILENAME helm-${VERSION}-linux-amd64.tar.gz
 ENV HELM_URL https://storage.googleapis.com/kubernetes-helm/${FILENAME}
+
+RUN echo $HELM_URL
 
 RUN curl -o /tmp/$FILENAME ${HELM_URL} \
   && tar -zxvf /tmp/${FILENAME} -C /tmp \
