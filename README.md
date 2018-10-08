@@ -31,3 +31,19 @@ docker build -t devth/helm .
    git tag $version
    git push && git push --tags
    ```
+
+### Re-release
+
+To re-build a particular tag we need to delete the git tag locally and remotely:
+
+```bash
+git push origin :$version
+git tag -d $version
+```
+
+Then re-tag and push:
+
+```bash
+git tag $version
+git push --tags
+```
