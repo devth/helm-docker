@@ -26,7 +26,7 @@ docker build -t devth/helm .
 1. Commit and create tag matching the version:
 
    ```bash
-   version=v2.12.0-rc.1
+   version=v2.12.0
    git commit -am "Bump to $version"
    git tag $version
    git push && git push --tags
