@@ -27,7 +27,8 @@ docker build -t devth/helm .
 
    ```bash
    version=v2.12.0
-   git commit -am "Bump to $version"
+   issue=33
+   git commit -am "Bump to $version; fix #$issue"
    git tag $version
    git push && git push --tags
    ```
