@@ -10,11 +10,24 @@ Hub](https://hub.docker.com/r/devth/helm/):
 
 ## Usage
 
-`helm`, `gcloud` and `kubectl` are all available.
+This Docker image includes `helm` along with:
 
-The image also includes the `helm diff` Helm Plugin.
+- `gcloud`
+- `kubectl`
+- `envsubst`
+
+And `helm` plugins:
+
+- `viglesiasce/helm-gcs.git`
+- `databus23/helm-diff`
 
 ## Docker
+
+- Docker tags correspond to [Helm
+  release](https://github.com/helm/helm/releases) versions.
+- `latest` is always the latest fully released version (non-RC).
+
+### Building
 
 ```bash
 docker build -t devth/helm .
