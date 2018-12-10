@@ -2,12 +2,6 @@
 
 [![Docker Pulls](https://img.shields.io/docker/pulls/devth/helm.svg?style=flat-square)](https://hub.docker.com/r/devth/helm/)
 
-Docker images are automatically built on [Docker
-Hub](https://hub.docker.com/r/devth/helm/):
-
-- `latest` always corresponds with the latest build from master
-- Docker `tag` always correspond with git `tag`
-
 ## Usage
 
 This Docker image includes `helm` along with:
@@ -22,6 +16,9 @@ And `helm` plugins:
 - `databus23/helm-diff`
 
 ## Docker
+
+Docker images are automatically built on [Docker
+Hub](https://hub.docker.com/r/devth/helm/):
 
 - Docker tags correspond to [Helm
   release](https://github.com/helm/helm/releases) versions.
