@@ -36,6 +36,16 @@ RUN curl -o /tmp/$FILENAME ${HELM_URL} \
 # helm-diff requires bash, curl
 RUN apk --update add git bash
 
+# Install envsubst [better than using 'sed' for yaml substitutions]
+ENV BUILD_DEPS="gettext"  \
+    RUNTIME_DEPS="libintl"
+
+RUN set -x && \
+    apk add --update $RUNTIME_DEPS && \
+    apk add --virtual build_deps $BUILD_DEPS &&  \
+    cp /usr/bin/envsubst /usr/local/bin/envsubst && \
+    apk del build_deps
+
 # Install Helm plugins
 RUN helm init --client-only
 # Plugin is downloaded to /tmp, which must exist
