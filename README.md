@@ -36,10 +36,10 @@ docker build -t devth/helm .
 1. Commit and create tag matching the version:
 
    ```bash
-   version=v2.12.2
-   issue=37
-   git commit -am "Bump to $version; fix #$issue"
-   git tag $version
+   VERSION=v2.12.3
+   ISSUE=38
+   git commit -am "Bump to $VERSION; fix #$ISSUE"
+   git tag $VERSION
    git push && git push --tags
    ```
 
@@ -48,13 +48,13 @@ docker build -t devth/helm .
 To re-build a particular tag we need to delete the git tag locally and remotely:
 
 ```bash
-git push origin :$version
-git tag -d $version
+git push origin :$VERSION
+git tag -d $VERSION
 ```
 
 Then re-tag and push:
 
 ```bash
-git tag $version
+git tag $VERSION
 git push --tags
 ```
