@@ -9,6 +9,7 @@ This Docker image includes `helm` along with:
 - `gcloud`
 - `kubectl`
 - `envsubst`
+- `jq`
 
 And `helm` plugins:
 
