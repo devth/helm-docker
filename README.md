@@ -24,6 +24,7 @@ Hub](https://hub.docker.com/r/devth/helm/):
 - Docker tags correspond to [Helm
   release](https://github.com/helm/helm/releases) versions.
 - `latest` is always the latest fully released version (non-RC).
+- `master` is always the latest commit on master.
 
 ### Building
 
