@@ -38,12 +38,18 @@ docker build -t devth/helm .
 1. Commit and create tag matching the version:
 
    ```bash
-   VERSION=v2.13.0-rc.2
-   ISSUE=41
+   VERSION=v2.13.0
+   ISSUE=42
    git commit -am "Bump to $VERSION; fix #$ISSUE"
    git tag $VERSION
    git push && git push --tags
    ```
+
+Optionally test building the image before pushing:
+
+```bash
+docker build .
+```
 
 ### Re-release
 
