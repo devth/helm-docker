@@ -34,16 +34,21 @@ docker build -t devth/helm .
 
 ## Release procedure
 
-1. Bump `VERSION` in the [Dockerfile](Dockerfile)
-1. Commit and create tag matching the version:
+Use the following to:
 
-   ```bash
-   VERSION=v2.13.1
-   ISSUE=43
-   git commit -am "Bump to $VERSION; fix #$ISSUE"
-   git tag $VERSION
-   git push && git push --tags
-   ```
+- Bump `VERSION` in the [Dockerfile](Dockerfile)
+- Commit and create tag matching the version
+
+NB: the `sed` syntax works with MacOS built-in `sed`.
+
+```bash
+VERSION=v2.14.0-rc.1
+ISSUE=44
+sed -i '' "3s/.*/ENV VERSION $VERSION/" Dockerfile
+git commit -am "Bump to $VERSION; fix #$ISSUE"
+git tag $VERSION
+git push && git push --tags
+```
 
 Optionally test building the image before pushing:
 
