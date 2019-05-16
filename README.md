@@ -44,6 +44,7 @@ NB: the `sed` syntax works with MacOS built-in `sed`.
 ```bash
 VERSION=v2.14.0-rc.2
 ISSUE=45
+# works on macOS
 sed -i '' "3s/.*/ENV VERSION $VERSION/" Dockerfile
 git commit -am "Bump to $VERSION; fix #$ISSUE"
 git tag $VERSION
