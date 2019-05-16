@@ -42,10 +42,11 @@ Use the following to:
 NB: the `sed` syntax works with MacOS built-in `sed`.
 
 ```bash
-VERSION=v2.14.0
-ISSUE=46
+VERSION=v3.0.0-alpha.1
+ISSUE=47
 # works on macOS
 sed -i '' "3s/.*/ENV VERSION $VERSION/" Dockerfile
+git diff # ensure it looks good
 git commit -am "Bump to $VERSION; fix #$ISSUE"
 git tag $VERSION
 git push && git push --tags
