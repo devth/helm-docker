@@ -42,7 +42,7 @@ Use the following to:
 NB: the `sed` syntax works with MacOS built-in `sed`.
 
 ```bash
-VERSION=v3.0.0-alpha.1
+VERSION=v2.14.0
 ISSUE=47
 # works on macOS
 sed -i '' "3s/.*/ENV VERSION $VERSION/" Dockerfile
