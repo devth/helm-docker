@@ -25,6 +25,7 @@ RUN google-cloud-sdk/bin/gcloud config set --installation component_manager/disa
 ENV FILENAME helm-${VERSION}-linux-amd64.tar.gz
 ENV HELM_URL https://storage.googleapis.com/kubernetes-helm/${FILENAME}
 
+
 RUN echo $HELM_URL
 
 RUN curl -o /tmp/$FILENAME ${HELM_URL} \
@@ -48,6 +49,8 @@ RUN set -x && \
 
 # Install Helm plugins
 RUN helm init --client-only
+# workaround for an issue in updating the binary of `helm-diff`
+ENV HELM_PLUGIN_DIR /.helm/plugins/helm-diff
 # Plugin is downloaded to /tmp, which must exist
 RUN mkdir /tmp
 RUN helm plugin install https://github.com/viglesiasce/helm-gcs.git
