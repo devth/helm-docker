@@ -1,4 +1,4 @@
-helm-docker
+# helm-docker
 
 [![Docker Pulls](https://img.shields.io/docker/pulls/devth/helm.svg?style=flat-square)](https://hub.docker.com/r/devth/helm/)
 
@@ -15,6 +15,7 @@ And `helm` plugins:
 
 - `viglesiasce/helm-gcs.git`
 - `databus23/helm-diff`
+- `helm/helm-2to3`
 
 ## Docker
 
@@ -23,7 +24,7 @@ Hub](https://hub.docker.com/r/devth/helm/):
 
 - Docker tags correspond to [Helm
   release](https://github.com/helm/helm/releases) versions.
-- `latest` is always the latest fully released version (non-RC).
+- `latest` is always the latest fully released version (non-beta/RC).
 - `master` is always the latest commit on master.
 
 ### Building
@@ -44,8 +45,8 @@ Use the following to:
 NB: the `sed` syntax works with MacOS built-in `sed`.
 
 ```bash
-VERSION=v3.0.0
-ISSUE=71
+VERSION=v3.0.2
+ISSUE=73
 # works on macOS
 sed -i '' "3s/.*/ENV VERSION $VERSION/" Dockerfile
 git diff # ensure it looks good
