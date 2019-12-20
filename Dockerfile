@@ -1,6 +1,6 @@
 FROM alpine:3.6
 
-ENV VERSION v2.16.1
+ENV VERSION v3.0.0-beta.5
 
 MAINTAINER Trevor Hartman <trevorhartman@gmail.com>
 
@@ -23,8 +23,7 @@ RUN google-cloud-sdk/bin/gcloud config set --installation component_manager/disa
 
 # Install Helm
 ENV FILENAME helm-${VERSION}-linux-amd64.tar.gz
-ENV HELM_URL https://storage.googleapis.com/kubernetes-helm/${FILENAME}
-
+ENV HELM_URL https://get.helm.sh/${FILENAME}
 
 RUN echo $HELM_URL
 
@@ -48,7 +47,7 @@ RUN set -x && \
     apk del build_deps
 
 # Install Helm plugins
-RUN helm init --client-only
+RUN helm init
 # workaround for an issue in updating the binary of `helm-diff`
 ENV HELM_PLUGIN_DIR /.helm/plugins/helm-diff
 # Plugin is downloaded to /tmp, which must exist

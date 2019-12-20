@@ -28,6 +28,8 @@ Hub](https://hub.docker.com/r/devth/helm/):
 
 ### Building
 
+To test a local build:
+
 ```bash
 docker build -t devth/helm .
 ```
@@ -42,7 +44,7 @@ Use the following to:
 NB: the `sed` syntax works with MacOS built-in `sed`.
 
 ```bash
-VERSION=v2.16.1
+VERSION=v3.0.0-beta.5
 ISSUE=70
 # works on macOS
 sed -i '' "3s/.*/ENV VERSION $VERSION/" Dockerfile
