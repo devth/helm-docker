@@ -45,8 +45,8 @@ Use the following to:
 NB: the `sed` syntax works with MacOS built-in `sed`.
 
 ```bash
-VERSION=v3.0.3
-ISSUE=75
+VERSION=v3.1.0-rc.2
+ISSUE=77
 # works on macOS
 sed -i '' "3s/.*/ENV VERSION $VERSION/" Dockerfile
 git diff # ensure it looks good
