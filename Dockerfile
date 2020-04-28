@@ -1,6 +1,6 @@
 FROM alpine:3.6
 
-ENV VERSION v3.2.0
+ENV VERSION v3.1.3
 
 MAINTAINER Trevor Hartman <trevorhartman@gmail.com>
 
@@ -47,7 +47,6 @@ RUN set -x && \
     apk del build_deps
 
 # Install Helm plugins
-RUN helm init
 # workaround for an issue in updating the binary of `helm-diff`
 ENV HELM_PLUGIN_DIR /.helm/plugins/helm-diff
 # Plugin is downloaded to /tmp, which must exist
