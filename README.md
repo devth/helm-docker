@@ -46,14 +46,20 @@ NB: the `sed` syntax works with MacOS built-in `sed`.
 
 ```bash
 gh issue list
-VERSION=v3.3.4
-ISSUE=106
-# works on macOS
+VERSION=v3.4.0
+ISSUE=110
+# use GNU sed
 sed -i '' "3s/.*/ENV VERSION $VERSION/" Dockerfile
 git diff # ensure it looks good
 git commit -am "Bump to $VERSION; fix #$ISSUE"
 git tag $VERSION
 git push && git push --tags
+```
+
+Close an issue without fixing it:
+
+```bash
+gh issue close 109
 ```
 
 Optionally test building the image before pushing:
