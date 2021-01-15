@@ -46,8 +46,8 @@ NB: the `sed` syntax works with MacOS built-in `sed`.
 
 ```bash
 gh issue list
-VERSION=v3.4.2
-ISSUE=112
+VERSION=v3.5.0
+ISSUE=115
 # use GNU sed
 sed -i "3s/.*/ENV VERSION $VERSION/" Dockerfile
 git diff # ensure it looks good
