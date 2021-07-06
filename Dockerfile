@@ -7,7 +7,7 @@ MAINTAINER Trevor Hartman <trevorhartman@gmail.com>
 WORKDIR /
 
 # Enable SSL
-RUN apk --update add ca-certificates wget python curl tar jq
+RUN apk --update add ca-certificates wget python3 curl tar jq
 
 # Install gcloud and kubectl
 # kubectl will be available at /google-cloud-sdk/bin/kubectl

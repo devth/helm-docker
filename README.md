@@ -10,6 +10,7 @@ This Docker image includes `helm` along with:
 - `kubectl`
 - `envsubst`
 - `jq`
+- [`vals`](https://github.com/variantdev/vals)
 
 And `helm` plugins:
 
