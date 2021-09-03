@@ -72,6 +72,5 @@ jobs:
             git tag -d ${MAJOR_VERSION}
             git push origin :refs/tags/${MAJOR_VERSION}
 
-          git commit -am "Update version to ${{ needs.check.outputs.release_tag }}"
           git tag $MAJOR_VERSION
           git push --tags
