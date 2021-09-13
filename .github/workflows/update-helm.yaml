@@ -1,9 +1,8 @@
 name: Update Helm
 
 on:
-  schedule:
-    # Run once a week
-    - cron: "0 0 * * 0"
+  issues:
+    types: [opened] 
 
 jobs:
   check:
