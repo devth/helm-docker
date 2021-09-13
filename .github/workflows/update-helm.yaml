@@ -1,0 +1,75 @@
+name: Update Helm
+
+on:
+  issues:
+    types: [opened] 
+
+jobs:
+  check:
+    name: Check for Release
+    runs-on: ubuntu-latest
+    outputs:
+      release_found: ${{ steps.compare_versions.outputs.release_found }}
+      release_tag: ${{ steps.get_tags.outputs.tag }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Get Helm tags
+        id: get_tags
+        run: |
+          LATEST_TAG=$(curl --silent --fail https://api.github.com/repos/helm/helm/tags | jq -r .[0].name)
+          echo "Latest tag: ${LATEST_TAG}"
+          echo "LATEST_TAG=${LATEST_TAG}" >> $GITHUB_ENV
+          echo "::set-output name=tag::${LATEST_TAG}"
+      - name: Compare versions
+        id: compare_versions
+        run: |
+          if grep -q "ENV VERSION ${{ env.LATEST_TAG }}" Dockerfile
+          then
+            echo "Not a new version, skipping..."
+            echo "::set-output name=release_found::false"
+          else
+            echo "Found a new release: $LATEST_TAG"
+            echo "::set-output name=release_found::true"
+          fi
+  update:
+    name: Update Dockerfile
+    needs: check
+    runs-on: ubuntu-latest
+    if: ${{ needs.check.outputs.release_found == 'true' }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Update
+        run: |
+          sed -i "3s/.*/ENV VERSION ${{ needs.check.outputs.release_tag }}/" Dockerfile
+      - name: Commit and Push - Full version tag
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+
+          git commit -am "Update version to ${{ needs.check.outputs.release_tag }}"
+          git tag ${{ needs.check.outputs.release_tag }}
+          git push
+      - name: Commit and Push - Major version tag
+        run: |
+          VERSION=${{ needs.check.outputs.release_tag }}
+          IFS="."
+          read -ra VERSION_ARRAY <<< "${VERSION}"
+          MAJOR_VERSION=${VERSION_ARRAY[0]}
+
+          echo "Got major version: ${MAJOR_VERSION}"
+
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          
+          git pull --tags
+          
+          if git rev-parse "${MAJOR_VERSION}" >/dev/null 2>&1
+          then
+            echo "Deleting git tags for ${MAJOR_VERSION}"
+            git tag -d ${MAJOR_VERSION}
+            git push origin :refs/tags/${MAJOR_VERSION}
+
+          git tag $MAJOR_VERSION
+          git push --tags
