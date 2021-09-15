@@ -24,7 +24,7 @@ jobs:
       - name: Compare versions
         id: compare_versions
         run: |
-          if grep -q "ENV VERSION ${{ env.LATEST_TAG }}" Dockerfile
+          if grep -q "ENV VERSION ${{ env.LATEST_TAG }}$" Dockerfile
           then
             echo "Not a new version, skipping..."
             echo "::set-output name=release_found::false"
