@@ -11,14 +11,19 @@ jobs:
     outputs:
       release_found: ${{ steps.compare_versions.outputs.release_found }}
       release_tag: ${{ steps.get_tags.outputs.tag }}
+      issue_number: ${{ steps.get_issue.outputs.issue_number
     steps:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Get issue that caused the workflow to run
         id: get_issue
         run: |
-          issue=$(jq --raw-output .issue.number "$GITHUB_EVENT_PATH")
+          issue_number=$(jq --raw-output .issue.number "$GITHUB_EVENT_PATH")
+          issue_title=$(jq --raw-output .issue.title "$GITHUB_EVENT_PATH")
 
+          echo "issue_number: $issue_number"
+          echo "issue_title: $issue_title"
+          echo "::set-output name=tag::${issue_number}"
 
       - name: Get Helm tags
         id: get_tags
