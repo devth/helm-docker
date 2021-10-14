@@ -74,3 +74,4 @@ jobs:
 
           git tag $MAJOR_VERSION
           git push --tags
+
