@@ -1,4 +1,4 @@
-FROM alpine:3.14
+FROM alpine:3.15.0
 
 ENV VERSION v3.7.1
 
