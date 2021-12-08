@@ -62,12 +62,12 @@ jobs:
           git config user.name github-actions
           git config user.email github-actions@github.com
 
-          commit_message = "Update version to ${{ needs.check.outputs.release_tag }}"
+          commit_message="Update version to ${{ needs.check.outputs.release_tag }}"
 
           # check if the issue title contains the version number we're upgrading
           if [[ "${{ needs.check.outsputs.issue_title }}" == *"${{ needs.check.outputs.release_tag }}"* ]]; then
             # if so, close it via commit message
-            commit_message = "${commit_message}; fix ${{ needs.check.outsputs.issue_number }}"
+            commit_message = "${commit_message}; fix ${{ needs.check.outputs.issue_number }}"
           fi
 
           git commit -am $commit_message
