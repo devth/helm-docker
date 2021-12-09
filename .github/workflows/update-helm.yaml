@@ -72,7 +72,7 @@ jobs:
           fi
 
           git diff
-          git commit -am $commit_message
+          git commit -am "$commit_message"
           git tag ${{ needs.check.outputs.release_tag }}
           git push
       - name: Commit and Push - Major version tag
