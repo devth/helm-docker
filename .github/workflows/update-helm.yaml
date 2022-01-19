@@ -66,7 +66,7 @@ jobs:
           commit_message="Update version to ${{ needs.check.outputs.release_tag }}"
 
           # check if the issue title contains the version number we're upgrading
-          if [[ "${{ needs.check.outsputs.issue_title }}" == *"${{ needs.check.outputs.release_tag }}"* ]]; then
+          if [[ "${{ needs.check.outputs.issue_title }}" == *"${{ needs.check.outputs.release_tag }}"* ]]; then
             # if so, close it via commit message
             commit_message = "${commit_message}; fix ${{ needs.check.outputs.issue_number }}"
           fi
