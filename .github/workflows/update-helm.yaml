@@ -74,7 +74,7 @@ jobs:
           git diff
           git commit -am "$commit_message"
           git tag ${{ needs.check.outputs.release_tag }}
-          git push
+
       - name: Commit and Push - Major version tag
         run: |
           VERSION=${{ needs.check.outputs.release_tag }}
@@ -97,5 +97,10 @@ jobs:
           fi
 
           git tag $MAJOR_VERSION
-          git push --tags
 
+      # must push with a PAT in order to trigger downstream github actions
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          tags: true
+          github_token: ${{ secrets.PAT }}
