@@ -59,20 +59,22 @@ jobs:
           sed -i "3s/.*/ENV VERSION ${{ needs.check.outputs.release_tag }}/" Dockerfile
       - name: Commit and Push - Full version tag
         run: |
+          set -x
           git config user.name github-actions
           git config user.email github-actions@github.com
 
           commit_message="Update version to ${{ needs.check.outputs.release_tag }}"
 
           # check if the issue title contains the version number we're upgrading
-          if [[ "${{ needs.check.outsputs.issue_title }}" == *"${{ needs.check.outputs.release_tag }}"* ]]; then
+          if [[ "${{ needs.check.outputs.issue_title }}" == *"${{ needs.check.outputs.release_tag }}"* ]]; then
             # if so, close it via commit message
             commit_message = "${commit_message}; fix ${{ needs.check.outputs.issue_number }}"
           fi
 
-          git commit -am $commit_message
+          git diff
+          git commit -am "$commit_message"
           git tag ${{ needs.check.outputs.release_tag }}
-          git push
+
       - name: Commit and Push - Major version tag
         run: |
           VERSION=${{ needs.check.outputs.release_tag }}
@@ -95,5 +97,10 @@ jobs:
           fi
 
           git tag $MAJOR_VERSION
-          git push --tags
 
+      # must push with a PAT in order to trigger downstream github actions
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          tags: true
+          github_token: ${{ secrets.PAT }}

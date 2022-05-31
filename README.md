@@ -1,6 +1,7 @@
 # helm-docker
 
-[![Docker Pulls](https://img.shields.io/docker/pulls/devth/helm.svg?style=flat-square)](https://hub.docker.com/r/devth/helm/)
+[![Docker Pulls](https://img.shields.io/docker/pulls/devth/helm.svg?style=for-the-badge)](https://hub.docker.com/r/devth/helm/)
+[![Docker Image Version](https://img.shields.io/docker/v/devth/helm?sort=date&style=for-the-badge)](https://hub.docker.com/r/devth/helm/)
 
 ## Usage
 
