@@ -54,6 +54,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        with:
+          persist-credentials: false
       - name: Update
         run: |
           sed -i "3s/.*/ENV VERSION ${{ needs.check.outputs.release_tag }}/" Dockerfile
@@ -76,6 +78,8 @@ jobs:
           git tag ${{ needs.check.outputs.release_tag }}
 
       - name: Commit and Push - Major version tag
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT }}
         run: |
           VERSION=${{ needs.check.outputs.release_tag }}
           IFS="."
@@ -100,7 +104,6 @@ jobs:
 
       # must push with a PAT in order to trigger downstream github actions
       - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          tags: true
-          github_token: ${{ secrets.PAT }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT }}
+        run: git push --follow-tags

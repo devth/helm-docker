@@ -1,9 +1,11 @@
 name: Publish Docker image
 
+# NOTE: this won't work if the tag was created by another action
+
 on:
   create:
     tags:
-      - '*'
+      - "*"
 
 jobs:
   push_to_registry:
