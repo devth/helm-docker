@@ -48,11 +48,12 @@ NB: the `sed` syntax works with MacOS built-in `sed`.
 
 ```bash
 gh issue list
-VERSION=v3.7.0-rc.2
-ISSUE=129
+VERSION=v3.10.3
+ISSUE=167
 # use GNU sed
 sed -i "3s/.*/ENV VERSION $VERSION/" Dockerfile
-git diff # ensure it looks good
+# ensure it looks good
+git diff
 git commit -am "Bump to $VERSION; fix #$ISSUE"
 git tag $VERSION
 git push && git push --tags
