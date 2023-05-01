@@ -97,7 +97,6 @@ jobs:
           then
             echo "Deleting git tags for ${MAJOR_VERSION}"
             git tag -d ${MAJOR_VERSION}
-            git push origin :refs/tags/${MAJOR_VERSION}
           fi
 
           git tag $MAJOR_VERSION
