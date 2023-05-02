@@ -77,30 +77,6 @@ jobs:
           git commit -am "$commit_message"
           git tag ${{ needs.check.outputs.release_tag }}
 
-      - name: Commit and Push - Major version tag
-        env:
-          GITHUB_TOKEN: ${{ secrets.PAT }}
-        run: |
-          VERSION=${{ needs.check.outputs.release_tag }}
-          IFS="."
-          read -ra VERSION_ARRAY <<< "${VERSION}"
-          MAJOR_VERSION=${VERSION_ARRAY[0]}
-
-          echo "Got major version: ${MAJOR_VERSION}"
-
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-
-          git pull --tags
-
-          if git rev-parse "${MAJOR_VERSION}" >/dev/null 2>&1
-          then
-            echo "Deleting git tags for ${MAJOR_VERSION}"
-            git tag -d ${MAJOR_VERSION}
-          fi
-
-          git tag $MAJOR_VERSION
-
       # must push with a PAT in order to trigger downstream github actions
       - name: Push changes
         env:
