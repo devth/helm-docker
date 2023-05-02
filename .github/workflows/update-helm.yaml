@@ -25,8 +25,8 @@ jobs:
 
           echo "issue_number: $issue_number"
           echo "issue_title: $issue_title"
-          echo "::set-output name=issue_number::${issue_number}"
-          echo "::set-output name=issue_title::${issue_title}"
+          echo "issue_number=${issue_number}" >> $GITHUB_OUTPUT
+          echo "issue_title=${issue_title}" >> $GITHUB_OUTPUT
 
       - name: Get Helm tags
         id: get_tags
@@ -34,17 +34,17 @@ jobs:
           LATEST_TAG=$(curl --silent --fail https://api.github.com/repos/helm/helm/tags | jq -r .[0].name)
           echo "Latest tag: ${LATEST_TAG}"
           echo "LATEST_TAG=${LATEST_TAG}" >> $GITHUB_ENV
-          echo "::set-output name=tag::${LATEST_TAG}"
+          echo "tag=${LATEST_TAG}" >> $GITHUB_OUTPUT
       - name: Compare versions
         id: compare_versions
         run: |
           if grep -q "ENV VERSION ${{ env.LATEST_TAG }}$" Dockerfile
           then
             echo "Not a new version, skipping..."
-            echo "::set-output name=release_found::false"
+            echo "release_found=false" >> $GITHUB_OUTPUT
           else
             echo "Found a new release: $LATEST_TAG"
-            echo "::set-output name=release_found::true"
+            echo "release_found=true" >> $GITHUB_OUTPUT
           fi
   update:
     name: Update Dockerfile
