@@ -55,7 +55,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
         with:
-          persist-credentials: false
+          token: ${{ secrets.PAT }}
       - name: Update
         run: |
           sed -i "3s/.*/ENV VERSION ${{ needs.check.outputs.release_tag }}/" Dockerfile
@@ -79,6 +79,4 @@ jobs:
 
       # must push with a PAT in order to trigger downstream github actions
       - name: Push changes
-        env:
-          GITHUB_TOKEN: ${{ secrets.PAT }}
         run: git push --follow-tags
