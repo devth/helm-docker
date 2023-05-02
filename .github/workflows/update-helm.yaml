@@ -79,4 +79,6 @@ jobs:
 
       # must push with a PAT in order to trigger downstream github actions
       - name: Push changes
-        run: git push --follow-tags
+        run: |
+          git push
+          git push origin ${{ needs.check.outputs.release_tag }}
