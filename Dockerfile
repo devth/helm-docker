@@ -53,7 +53,6 @@ ENV HELM_PLUGIN_DIR /.helm/plugins/helm-diff
 RUN mkdir /tmp
 RUN helm plugin install https://github.com/viglesiasce/helm-gcs.git
 RUN helm plugin install https://github.com/databus23/helm-diff
-RUN helm plugin install https://github.com/helm/helm-2to3
 
 # Install vals tool
 ENV VALS_VERSION=0.25.0

@@ -17,7 +17,6 @@ And `helm` plugins:
 
 - `viglesiasce/helm-gcs.git`
 - `databus23/helm-diff`
-- `helm/helm-2to3`
 
 ## Docker
 
