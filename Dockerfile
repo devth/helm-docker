@@ -1,6 +1,6 @@
 FROM alpine:3.18.4
 
-ENV VERSION v3.14.0-rc.1
+ENV VERSION v3.14.0
 
 MAINTAINER Trevor Hartman <trevorhartman@gmail.com>
 
