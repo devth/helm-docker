@@ -15,7 +15,7 @@ jobs:
       issue_title: ${{ steps.get_issue.outputs.issue_title }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Get issue that caused the workflow to run
         id: get_issue
@@ -53,7 +53,7 @@ jobs:
     if: ${{ needs.check.outputs.release_found == 'true' }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           token: ${{ secrets.PAT }}
       - name: Update
