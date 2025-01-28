@@ -2,6 +2,8 @@ FROM alpine:3.21.0
 
 ENV VERSION v3.17.0
 
+ARG TARGETARCH
+
 MAINTAINER Trevor Hartman <trevorhartman@gmail.com>
 
 WORKDIR /
@@ -15,21 +17,21 @@ RUN apk --update add ca-certificates wget python3 curl tar jq
 ENV HOME /
 ENV PATH /google-cloud-sdk/bin:$PATH
 ENV CLOUDSDK_PYTHON_SITEPACKAGES 1
-RUN wget https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-linux-x86_64.tar.gz && tar -xf google-cloud-cli-linux-x86_64.tar.gz && rm google-cloud-cli-linux-x86_64.tar.gz
+
+RUN export ARCH=${TARGETARCH/amd64/x86_64}; export ARCH=${ARCH/arm64/arm}; wget https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-linux-${ARCH}.tar.gz && tar -xf google-cloud-cli-linux-${ARCH}.tar.gz && rm google-cloud-cli-linux-${ARCH}.tar.gz
 RUN google-cloud-sdk/install.sh --usage-reporting=true --path-update=true --bash-completion=true --rc-path=/.bashrc --additional-components app kubectl alpha beta
 # Disable updater check for the whole installation.
 # Users won't be bugged with notifications to update to the latest version of gcloud.
 RUN google-cloud-sdk/bin/gcloud config set --installation component_manager/disable_update_check true
 
-# Install Helm
-ENV FILENAME helm-${VERSION}-linux-amd64.tar.gz
+ENV FILENAME helm-${VERSION}-linux-${TARGETARCH}.tar.gz
 ENV HELM_URL https://get.helm.sh/${FILENAME}
 
 RUN echo $HELM_URL
 
 RUN curl -o /tmp/$FILENAME ${HELM_URL} \
   && tar -zxvf /tmp/${FILENAME} -C /tmp \
-  && mv /tmp/linux-amd64/helm /bin/helm \
+  && mv /tmp/linux-${TARGETARCH}/helm /bin/helm \
   && rm -rf /tmp
 
 # Helm plugins require git
@@ -56,5 +58,5 @@ RUN helm plugin install https://github.com/databus23/helm-diff
 
 # Install vals tool
 ENV VALS_VERSION=0.25.0
-ENV VALS_URL=https://github.com/variantdev/vals/releases/download/v${VALS_VERSION}/vals_${VALS_VERSION}_linux_amd64.tar.gz
+ENV VALS_URL=https://github.com/variantdev/vals/releases/download/v${VALS_VERSION}/vals_${VALS_VERSION}_linux_${TARGETARCH}.tar.gz
 RUN curl -sL ${VALS_URL} | tar zx -C /usr/local/bin vals
