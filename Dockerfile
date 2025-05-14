@@ -1,6 +1,6 @@
 FROM alpine:3.21.3
 
-ENV VERSION v3.18.0-rc.1
+ENV VERSION v3.18.0-rc.2
 
 ARG TARGETARCH
 
